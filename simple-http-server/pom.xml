@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>simple-framework</artifactId>
-    <groupId>org.horse.simple</groupId>
+    <groupId>org.horse.simple.framework</groupId>
     <version>1.0.0</version>
   </parent>
 
@@ -22,7 +22,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.horse.simple</groupId>
+      <groupId>org.horse.simple.framework</groupId>
       <artifactId>common-utils</artifactId>
       <version>1.0.0</version>
     </dependency>
