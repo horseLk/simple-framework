@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- web.xml template -->
+<web-root>
+    <!-- web应用名称 -->
+    <display-name>test-http</display-name>
+    <!-- web应用配置 -->
+    <config>
+        <start-config>
+            <port>8080</port>
+        </start-config>
+        <session-config>
+            <timeout>120</timeout>
+        </session-config>
+        <url-pre>/app/v1</url-pre>
+    </config>
+
+    <!-- servlet配置与映射 -->
+    <servlets>
+        <servlet>
+            <servlet-name>name</servlet-name>
+            <servlet-class>org.horse.simple.UserServlet</servlet-class>
+            <uri-mapping>/user</uri-mapping>
+        </servlet>
+    </servlets>
+</web-root>
