@@ -32,6 +32,7 @@
     <modules>
         <module>common-utils</module>
         <module>simple-http-server</module>
+        <module>simple-spring</module>
     </modules>
 
 
