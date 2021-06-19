@@ -56,7 +56,6 @@ public class HttpProcessor implements Runnable {
              * 解析 http 报文
              */
             HttpRequest httpRequest = decode();
-            System.out.println(httpRequest);
             this.connection.setRequest(httpRequest);
             this.connection.setResponse(new HttpResponse());
             // 业务处理
@@ -123,7 +122,7 @@ public class HttpProcessor implements Runnable {
      */
     private boolean isStaticRequest(String uri) {
         if (uri.endsWith(HttpResponseBuildUtils.HTM_END) || uri.endsWith(HttpResponseBuildUtils.HTML_END)
-                || uri.endsWith(HttpResponseBuildUtils.JS_END)) {
+                || uri.endsWith(HttpResponseBuildUtils.JS_END) || uri.endsWith(HttpResponseBuildUtils.PNG_END)) {
             return true;
         }
         return false;

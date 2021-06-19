@@ -5,10 +5,7 @@ import org.horse.simple.http.pojo.HttpRequest;
 import org.horse.simple.http.pojo.HttpResponse;
 import org.horse.simple.http.utils.HttpResponseBuildUtils;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -26,13 +23,17 @@ public class StaticHttpServlet extends BaseHttpServlet {
         if (resource != null) {
             try {
                 // 根据静态文件生成OutputStream
-                BufferedReader reader = new BufferedReader(new FileReader(resource.getFile()));
-                ByteArrayOutputStream outputStream = genOutputStream(reader);
+                BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(resource.getFile()));
+                ByteArrayOutputStream outputStream = genOutputStream(inputStream);
                 // 给response设置OutputStream
                 response.setBody(outputStream);
                 // 根据请求文件类型设置浏览器显示文件的格式
                 if (request.getUri().endsWith(HttpResponseBuildUtils.HTML_END) || request.getUri().endsWith(HttpResponseBuildUtils.HTM_END)) {
                     HttpResponseBuildUtils.buildResponse(response, request.getVersion(), ResponseStatusEnum.OK, HttpResponseBuildUtils.HTML_DATA);
+                } else if (request.getUri().endsWith(HttpResponseBuildUtils.JS_END)) {
+                    HttpResponseBuildUtils.buildResponse(response, request.getVersion(), ResponseStatusEnum.OK, HttpResponseBuildUtils.ORIGIN_DATA);
+                } else if (request.getUri().endsWith(HttpResponseBuildUtils.PNG_END)){
+                    HttpResponseBuildUtils.buildResponse(response, request.getVersion(), ResponseStatusEnum.OK, HttpResponseBuildUtils.PNG_DATA);
                 } else {
                     HttpResponseBuildUtils.buildResponse(response, request.getVersion(), ResponseStatusEnum.OK, HttpResponseBuildUtils.ORIGIN_DATA);
                 }
@@ -54,13 +55,14 @@ public class StaticHttpServlet extends BaseHttpServlet {
 
     /**
      * 把数据从文件中读取到OutputStream
-     * @param staticFileData 静态文件数据
+     * @param inputStream 静态文件数据
      */
-    private ByteArrayOutputStream genOutputStream(BufferedReader staticFileData) throws IOException {
+    private ByteArrayOutputStream genOutputStream(BufferedInputStream inputStream) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        String line;
-        while ((line = staticFileData.readLine()) != null) {
-            outputStream.write(line.getBytes(StandardCharsets.UTF_8));
+        byte[] bys = new byte[1024];
+        int len = -1;
+        while ((len = inputStream.read(bys)) != -1) {
+            outputStream.write(bys, 0, len);
         }
         return outputStream;
     }

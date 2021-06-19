@@ -35,9 +35,14 @@ public class HttpResponseBuildUtils {
     public static final String HTML_DATA = "text/html";
 
     /**
-     * 告知浏览器用园格式展示数据
+     * 告知浏览器用原格式展示数据
      */
     public static final String ORIGIN_DATA = "text/plain";
+
+    /**
+     * png图片格式展示数据
+     */
+    public static final String PNG_DATA = "image/png";
 
     /**
      * html 文件结尾
@@ -53,6 +58,11 @@ public class HttpResponseBuildUtils {
      * js 文件结尾
      */
     public static final String JS_END = ".js";
+
+    /**
+     * png图片结尾
+     */
+    public static final String PNG_END = ".png";
 
     /**
      * 给response赋值
