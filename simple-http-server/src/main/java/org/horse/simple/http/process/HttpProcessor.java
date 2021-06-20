@@ -2,6 +2,7 @@ package org.horse.simple.http.process;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.horse.simple.http.config.ContentTypeConfig;
 import org.horse.simple.http.config.HttpServerConfig;
 import org.horse.simple.http.config.HttpServletMapping;
 import org.horse.simple.http.enums.ResponseStatusEnum;
@@ -93,7 +94,7 @@ public class HttpProcessor implements Runnable {
         HttpResponse response = this.connection.getResponse();
         // 检查是否配置了 uri 映射
         HttpServletMapping servletMapping = HttpServerConfig.get(request.getUri());
-        if (servletMapping != null || isStaticRequest(request.getUri())) {
+        if (servletMapping != null || request.getUri().contains(".")) {
             try {
                 // 初始化 servlet 并执行service 方法
                 Servlet servlet;
@@ -106,26 +107,13 @@ public class HttpProcessor implements Runnable {
             } catch (Throwable e) {
                 // 构建 response 数据（服务器异常）
                 response.write(ResponseStatusEnum.SERVER_ERROR);
-                HttpResponseBuildUtils.buildResponse(response, request.getVersion(), ResponseStatusEnum.SERVER_ERROR, HttpResponseBuildUtils.HTML_DATA);
+                HttpResponseBuildUtils.buildResponse(response, request.getVersion(), ResponseStatusEnum.SERVER_ERROR, ContentTypeConfig.get(HttpResponseBuildUtils.HTML_SUFFIX));
             }
         } else {
             // 404 找不到资源异常
             response.write(ResponseStatusEnum.NOT_FOUND);
-            HttpResponseBuildUtils.buildResponse(response, request.getVersion(), ResponseStatusEnum.NOT_FOUND, HttpResponseBuildUtils.HTML_DATA);
+            HttpResponseBuildUtils.buildResponse(response, request.getVersion(), ResponseStatusEnum.NOT_FOUND, ContentTypeConfig.get(HttpResponseBuildUtils.HTML_SUFFIX));
         }
-    }
-
-    /**
-     * 判断是否是请求静态资源
-     * @param uri uri
-     * @return boolean
-     */
-    private boolean isStaticRequest(String uri) {
-        if (uri.endsWith(HttpResponseBuildUtils.HTM_END) || uri.endsWith(HttpResponseBuildUtils.HTML_END)
-                || uri.endsWith(HttpResponseBuildUtils.JS_END) || uri.endsWith(HttpResponseBuildUtils.PNG_END)) {
-            return true;
-        }
-        return false;
     }
 
     /**

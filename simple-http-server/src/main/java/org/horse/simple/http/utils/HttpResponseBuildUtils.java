@@ -30,39 +30,9 @@ public class HttpResponseBuildUtils {
     public static final String JSON_DATA = "application/json";
 
     /**
-     * 告知浏览器用 html 格式展示数据
+     * html文件结尾
      */
-    public static final String HTML_DATA = "text/html";
-
-    /**
-     * 告知浏览器用原格式展示数据
-     */
-    public static final String ORIGIN_DATA = "text/plain";
-
-    /**
-     * png图片格式展示数据
-     */
-    public static final String PNG_DATA = "image/png";
-
-    /**
-     * html 文件结尾
-     */
-    public static final String HTML_END = ".html";
-
-    /**
-     * htm 文件结尾
-     */
-    public static final String HTM_END = ".htm";
-
-    /**
-     * js 文件结尾
-     */
-    public static final String JS_END = ".js";
-
-    /**
-     * png图片结尾
-     */
-    public static final String PNG_END = ".png";
+    public static final String HTML_SUFFIX = "html";
 
     /**
      * 给response赋值
