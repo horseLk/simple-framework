@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * 请求方法枚举类型，目前仅支持GET, POST
+ *
  * @author horse
  * @date 2021/6/9
  */
@@ -20,21 +21,21 @@ public enum RequestMethodEnum {
     /**
      * post方法
      */
-    POST("POST", "post")
-    ;
+    POST("POST", "post");
 
     /**
      * 请求方法标志符号
      */
-    private String type;
+    private final String type;
 
     /**
      * 请求方法描述
      */
-    private String desc;
+    private final String desc;
 
     /**
      * 根据请求方法获取枚举对象
+     *
      * @param type type
      * @return RequestMethodEnum
      */

@@ -5,6 +5,7 @@ import lombok.Getter;
 
 /**
  * 已知异常枚举类
+ *
  * @author horse
  * @date 2021/6/9
  */
@@ -28,16 +29,15 @@ public enum SimpleHttpExceptionEnum {
     RESPONSE_WRITE_ERROR("write_response_error", "写回数据异常"),
 
 
-    RELEASE_RESOURCE_ERROR("release_resource_error", "释放资源失败")
-    ;
+    RELEASE_RESOURCE_ERROR("release_resource_error", "释放资源失败");
 
     /**
      * 错误码
      */
-    private String code;
+    private final String code;
 
     /**
      * 错误信息
      */
-    private String errorMsg;
+    private final String errorMsg;
 }

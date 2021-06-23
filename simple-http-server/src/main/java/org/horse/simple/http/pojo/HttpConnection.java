@@ -8,6 +8,7 @@ import java.nio.channels.SocketChannel;
 
 /**
  * 封装http连接信息
+ *
  * @author horse
  * @date 2021/6/6
  */

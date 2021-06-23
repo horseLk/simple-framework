@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * 开启的http服务配置信息类
+ *
  * @author horse
  * @date 2021/6/6
  */
@@ -69,6 +70,7 @@ public class HttpServerConfig {
 
     /**
      * 添加 url 映射
+     *
      * @param servletMapping servletMapping
      */
     public static void put(HttpServletMapping servletMapping) {
@@ -77,6 +79,7 @@ public class HttpServerConfig {
 
     /**
      * 根据uri找到对应的servlet
+     *
      * @param uri uri
      * @return HttpServletMapping
      */

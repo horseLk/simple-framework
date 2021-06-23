@@ -36,7 +36,7 @@ public class HttpConnector implements Runnable {
     /**
      * 业务处理线程池
      */
-    private ExecutorService processorThreadPool;
+    private final ExecutorService processorThreadPool;
 
     public HttpConnector() {
         this.processorThreadPool = new ThreadPoolExecutor(Constant.CORE_POOL_SIZE, Constant.MAXIMUM_POOL_SIZE, Constant.KEEP_ALIVE_TIME,

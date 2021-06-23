@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * 请求数据解析为请求对象
+ *
  * @author horse
  * @date 2021/6/9
  */
@@ -48,6 +49,7 @@ public class HttpRequestParseUtils {
     /**
      * 解析http报文
      * 解析成功返回HttpRequest对象，否则返回null
+     *
      * @param requestStr 报文
      * @return HttpRequest
      */
@@ -90,6 +92,7 @@ public class HttpRequestParseUtils {
     /**
      * 将请求体转换为json字符串
      * TODO: 前端表单提交的请求体是 a=b&c=d 格式的，此处暂未实现
+     *
      * @param bodyStr 请求体内容
      * @return json
      */
@@ -100,6 +103,7 @@ public class HttpRequestParseUtils {
 
     /**
      * 解析request params中的参数
+     *
      * @param queryStr queryStr
      * @return Map<String, String>
      */

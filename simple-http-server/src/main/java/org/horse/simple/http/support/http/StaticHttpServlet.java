@@ -14,6 +14,7 @@ import java.net.URL;
 
 /**
  * 请求静态资源的servlet
+ *
  * @author horse
  * @date 2021/6/9
  */
@@ -53,12 +54,13 @@ public class StaticHttpServlet extends BaseHttpServlet {
 
     /**
      * 把数据从文件中读取到OutputStream
+     *
      * @param inputStream 静态文件数据
      */
     private ByteArrayOutputStream genOutputStream(BufferedInputStream inputStream) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         byte[] bys = new byte[1024];
-        int len = -1;
+        int len;
         while ((len = inputStream.read(bys)) != -1) {
             outputStream.write(bys, 0, len);
         }

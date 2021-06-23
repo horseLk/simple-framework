@@ -2,6 +2,7 @@ package org.horse.simple.http.pojo;
 
 /**
  * request 基类
+ *
  * @author horse
  * @date 2021/6/7
  */

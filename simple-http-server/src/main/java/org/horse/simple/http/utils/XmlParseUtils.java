@@ -3,18 +3,18 @@ package org.horse.simple.http.utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.horse.simple.http.config.HttpServerConfig;
 import org.horse.simple.http.config.HttpServletMapping;
 import org.horse.simple.common.util.LogUtils;
 
-import java.io.File;
+import java.net.URL;
 import java.util.Iterator;
 
 /**
  * 解析xml文件的工具类
+ *
  * @author horse
  * @date 2021/6/7
  */
@@ -32,15 +32,19 @@ public class XmlParseUtils {
     static {
         try {
             init();
-        } catch (DocumentException e) {
+        } catch (Exception e) {
             LogUtils.error(LOG, e, "load web.xml error.");
             System.exit(-1);
         }
     }
 
-    private static void init() throws DocumentException {
+    private static void init() throws Exception {
         SAXReader saxReader = new SAXReader();
-        document = saxReader.read(new File(XmlParseUtils.class.getClassLoader().getResource("web.xml").getPath()));
+        URL resource = XmlParseUtils.class.getClassLoader().getResource("web.xml");
+        if (resource == null) {
+            throw new Exception("找不到web.xml文件进行初始化.");
+        }
+        document = saxReader.read(resource.getFile());
     }
 
     public static void loadConfig() throws ClassNotFoundException {
@@ -59,7 +63,7 @@ public class XmlParseUtils {
         HttpServerConfig.setSessionTimeout(sessionTimeout);
 
         Element servletElement = rootElement.element("servlets");
-        Iterator iterator = servletElement.elementIterator();
+        Iterator<?> iterator = servletElement.elementIterator();
         while (iterator.hasNext()) {
             Element cur = (Element) iterator.next();
             String servletName = cur.elementText("servlet-name");

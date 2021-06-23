@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * 请求数据封装
+ *
  * @author horse
  * @date 2021/6/6
  */

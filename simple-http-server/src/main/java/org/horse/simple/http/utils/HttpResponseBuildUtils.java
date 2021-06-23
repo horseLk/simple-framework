@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * 构建response工具类
+ *
  * @author horse
  * @date 2021/6/10
  */
@@ -24,7 +25,6 @@ public class HttpResponseBuildUtils {
     private static final Logger LOG = LogManager.getLogger(HttpResponseBuildUtils.class);
 
     /**
-     *
      * 告知浏览器用 json 格式展示数据
      */
     public static final String JSON_DATA = "application/json";
@@ -37,9 +37,9 @@ public class HttpResponseBuildUtils {
     /**
      * 给response赋值
      *
-     * @param response 被赋值的response
-     * @param version http版本
-     * @param status status
+     * @param response   被赋值的response
+     * @param version    http版本
+     * @param status     status
      * @param dataFormat dataFormat
      */
     public static void buildResponse(HttpResponse response, String version, ResponseStatusEnum status, String dataFormat) {
@@ -52,7 +52,8 @@ public class HttpResponseBuildUtils {
 
     /**
      * 构建响应头
-     * @param response 响应
+     *
+     * @param response   响应
      * @param dataFormat 数据格式
      */
     private static void buildResponseHeaders(HttpResponse response, String dataFormat) {
@@ -70,6 +71,7 @@ public class HttpResponseBuildUtils {
 
     /**
      * 把数据对象json格式化后转换为OutputStream
+     *
      * @param obj object
      * @return OutputStream
      */
@@ -91,6 +93,7 @@ public class HttpResponseBuildUtils {
 
     /**
      * 将 response 数据写入到byteBuffer中
+     *
      * @param response response
      * @return ByteBuffer
      */

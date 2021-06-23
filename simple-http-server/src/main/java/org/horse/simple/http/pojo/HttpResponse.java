@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * 响应数据封装
+ *
  * @author horse
  * @date 2021/6/6
  */
@@ -49,6 +50,7 @@ public class HttpResponse extends BaseResponse {
 
     /**
      * 用于封装结果
+     *
      * @param obj obj
      */
     public void write(Object obj) {

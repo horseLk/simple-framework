@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * http 业务转发处理
+ *
  * @author horse
  * @date 2021/6/8
  */
@@ -43,6 +44,7 @@ public class HttpProcessor implements Runnable {
 
     /**
      * constructor
+     *
      * @param connection HttpConnection
      */
     public HttpProcessor(HttpConnection connection) {
@@ -53,9 +55,7 @@ public class HttpProcessor implements Runnable {
     public void run() {
         LogUtils.info(LOG, "build connection successful, start process request.");
         try {
-            /**
-             * 解析 http 报文
-             */
+            // 解析 http 报文
             HttpRequest httpRequest = decode();
             this.connection.setRequest(httpRequest);
             this.connection.setResponse(new HttpResponse());
@@ -118,6 +118,7 @@ public class HttpProcessor implements Runnable {
 
     /**
      * 解析请求报文生成HttpRequest
+     *
      * @return 返回HttpRequest对象
      */
     private HttpRequest decode() throws SimpleHttpException {

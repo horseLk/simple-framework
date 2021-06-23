@@ -5,6 +5,7 @@ import lombok.Getter;
 
 /**
  * response 状态枚举类
+ *
  * @author horse
  * @date 2021/6/9
  */
@@ -30,10 +31,10 @@ public enum ResponseStatusEnum {
     /**
      * 状态值
      */
-    private int code;
+    private final int code;
 
     /**
      * 错误信息
      */
-    private String msg;
+    private final String msg;
 }

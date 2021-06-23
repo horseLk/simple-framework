@@ -6,6 +6,7 @@ import org.horse.simple.http.enums.SimpleHttpExceptionEnum;
 
 /**
  * 统一的异常处理
+ *
  * @author horse
  * @date 2021/6/9
  */
@@ -34,6 +35,7 @@ public class SimpleHttpException extends Exception {
 
     /**
      * 根据已经抛出的异常构造 SimpleHttpException
+     *
      * @param e exception
      */
     public SimpleHttpException(Throwable e) {

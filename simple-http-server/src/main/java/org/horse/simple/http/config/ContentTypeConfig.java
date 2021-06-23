@@ -10,6 +10,7 @@ import java.util.Properties;
 
 /**
  * 告知浏览器如何解析内容
+ *
  * @author horse
  * @date 2021/6/20
  */
@@ -41,6 +42,7 @@ public class ContentTypeConfig {
 
     /**
      * 根据文件结尾获取Content-Type类型
+     *
      * @param suffix 文件类型
      * @return Content-Type
      */

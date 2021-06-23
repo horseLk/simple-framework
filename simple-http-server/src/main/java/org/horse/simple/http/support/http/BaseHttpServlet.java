@@ -12,20 +12,23 @@ import org.horse.simple.http.utils.HttpResponseBuildUtils;
 
 /**
  * HttpServlet 基类
+ *
  * @author horse
  * @date 2021/6/7
  */
 public abstract class BaseHttpServlet implements Servlet {
     /**
      * get请求方法调用
-     * @param request request
+     *
+     * @param request  request
      * @param response response
      */
     public abstract void doGet(HttpRequest request, HttpResponse response);
 
     /**
      * post请求方法调用
-     * @param request request
+     *
+     * @param request  request
      * @param response response
      */
     public abstract void doPost(HttpRequest request, HttpResponse response);
