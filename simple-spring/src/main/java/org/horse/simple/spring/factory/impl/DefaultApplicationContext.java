@@ -9,20 +9,28 @@ import org.horse.simple.spring.annotation.Autowire;
 import org.horse.simple.spring.annotation.Configuration;
 import org.horse.simple.spring.annotation.Value;
 import org.horse.simple.spring.factory.BeanDefinitionRegistry;
-import org.horse.simple.spring.factory.aware.Aware;
 import org.horse.simple.spring.factory.bean.BeanDefinition;
 import org.horse.simple.spring.factory.processor.BeanPostProcessorFactory;
 import org.horse.simple.spring.factory.support.BeanPostProcessor;
 import org.horse.simple.spring.factory.support.InitializationBean;
 import org.horse.simple.spring.parser.ClassParser;
 import org.horse.simple.spring.parser.ComponentScanParser;
+import org.horse.simple.spring.processor.AopPostProcessor;
 import org.horse.simple.spring.processor.ApplicationContextAwarePostProcessor;
 import org.horse.simple.spring.processor.BeanNameAwarePostProcessor;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 默认的ApplicationContext
+ *
+ * @author horse
+ * @date 2021/7/1
+ */
 public class DefaultApplicationContext extends BaseApplicationContext implements BeanDefinitionRegistry, BeanPostProcessorFactory {
     /**
      * LOG
@@ -33,6 +41,16 @@ public class DefaultApplicationContext extends BaseApplicationContext implements
      * beanDefinition 容器
      */
     private final Map<String, BeanDefinition> BEAN_DEFINITION_MAP = Maps.newHashMap();
+
+    /**
+     * 第三方包还未注册完成的半成品
+     */
+    private final Map<String, Object> THIRD_HALF_BEAN = Maps.newHashMap();
+
+    /**
+     * 第三方包中被注册对象的映射
+     */
+    private final Map<String, Class<?>> THIRD_BEAN_CLASS = Maps.newHashMap();
 
     private final Class<?> configClass;
 
@@ -70,7 +88,7 @@ public class DefaultApplicationContext extends BaseApplicationContext implements
             }
             // Configuration 配置类
             if (clazz.isAnnotationPresent(Configuration.class)) {
-                // todo
+                registerThirdBeanHalf(clazz);
             }
             // 普通类
             BeanDefinition beanDefinition = ClassParser.getBeanDefinition(clazz);
@@ -89,17 +107,48 @@ public class DefaultApplicationContext extends BaseApplicationContext implements
                 createBean(entry.getKey(), beanDefinition);
             }
         }
+        // 遍历所有的三方包中的对象并注入到容器中
+        for (Map.Entry<String, Class<?>> entry : THIRD_BEAN_CLASS.entrySet()) {
+            Object bean = THIRD_HALF_BEAN.get(entry.getKey());
+            Class<?> beanClazz = entry.getValue();
+            Field[] declaredFields = beanClazz.getDeclaredFields();
+            for (Field field : declaredFields) {
+                field.setAccessible(true);
+                String fieldName = field.getName();
+                Object fieldObj = getBean(fieldName);
+                if (fieldObj == null) {
+                    fieldObj = THIRD_HALF_BEAN.get(fieldName);
+                }
+                field.set(bean, fieldObj);
+            }
+            addSingleton(entry.getKey(), bean);
+        }
         // 更改状态为已经初始化
         isInitial = true;
     }
 
     /**
+     * 注册第三方包中的类对象到容器
+     * @param clazz Configuration类
+     */
+    private void registerThirdBeanHalf(Class<?> clazz) throws Exception {
+        // 只注册public方法
+        Method[] methods = clazz.getMethods();
+        for (Method method : methods) {
+            String beanName = method.getName();
+            Class<?> returnType = method.getReturnType();
+            THIRD_HALF_BEAN.put(beanName, returnType.getDeclaredConstructor().newInstance());
+            THIRD_BEAN_CLASS.put(beanName, returnType);
+        }
+    }
+
+    /**
      * 注册系统的 BeanPostProcessor到容器
      */
-    // todo
     private void registerSystemBeanPostProcessor() {
         registerBeanPostProcessor(new BeanNameAwarePostProcessor());
         registerBeanPostProcessor(new ApplicationContextAwarePostProcessor(this));
+        registerBeanPostProcessor(new AopPostProcessor());
     }
 
 

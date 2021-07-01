@@ -7,13 +7,18 @@ import java.lang.annotation.Target;
 import java.lang.annotation.Documented;
 
 /**
- * 日志切面织入声明
+ * 环绕通知注解
  *
  * @author horse
- * @date 2021/6/15
+ * @date 2021/6/27
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
-public @interface Log {
+public @interface Around {
+    /**
+     * 使用的环绕切面类的全路径名
+     * @return 全路径名
+     */
+    String value();
 }

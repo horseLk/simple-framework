@@ -20,6 +20,10 @@ public class ApplicationContextTest {
     @Test
     public void testIoc() throws Exception {
         DemoController demoController = (DemoController) context.getBean("demoController");
+
+        demoController.callTestService();
+
+        System.out.println("---------------");
         Assert.assertEquals("hello", demoController.callService("hello"));
         Assert.assertEquals("horse", demoController.getName());
         Assert.assertEquals(24, demoController.getAge());

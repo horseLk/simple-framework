@@ -1,6 +1,7 @@
 package org.horse.simple.controller;
 
 import org.horse.simple.service.DemoService;
+import org.horse.simple.service.TestService;
 import org.horse.simple.spring.annotation.Autowire;
 import org.horse.simple.spring.annotation.Controller;
 import org.horse.simple.spring.annotation.Value;
@@ -14,12 +15,19 @@ public class DemoController implements InitializationBean, BeanNameAware {
     @Autowire
     private DemoService demoService;
 
+    @Autowire
+    private TestService testServiceImpl;
+
     @Value("horse")
     private String name;
 
     private int age;
 
     private String beanName;
+
+    public void callTestService() {
+        testServiceImpl.callTestService();
+    }
 
     public String callService(String str) {
         return demoService.find(str);

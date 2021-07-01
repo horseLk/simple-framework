@@ -4,10 +4,10 @@ import org.horse.simple.spring.annotation.Before;
 import org.horse.simple.spring.annotation.Service;
 
 @Service
-public class DemoService {
-
+public class TestServiceImpl implements TestService {
+    @Override
     @Before("org.horse.simple.aop.DemoBeforeAdvice")
-    public String find(String str) {
-        return str;
+    public void callTestService() {
+        System.out.println("jdk proxy");
     }
 }
