@@ -33,6 +33,7 @@
         <module>common-utils</module>
         <module>simple-http-server</module>
         <module>simple-spring</module>
+        <module>simple-rpc</module>
     </modules>
 
 

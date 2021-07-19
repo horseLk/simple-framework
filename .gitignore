@@ -26,3 +26,4 @@ hs_err_pid*
 /simple-http-server/simple-http-server.iml
 /*/target
 /simple-spring/simple-spring.iml
+/simple-rpc/simple-rpc.iml
